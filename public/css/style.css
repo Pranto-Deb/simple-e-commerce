@@ -1,0 +1,15 @@
+
+/* dropdown-css */
+
+.dropdown-menu-lg {
+    max-width: 50px;
+    min-width: 180px;
+    padding: 0;
+}
+
+.rounded-full {
+    border-radius: 9999px;
+}
+
+
+
