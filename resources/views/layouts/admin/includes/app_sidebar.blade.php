@@ -22,19 +22,25 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="{{ route('admin.category.index') }}" class="nav-link">
                         <i class="nav-icon fas fa-th"></i>
                         <p>Category</p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="{{ route('admin.brand.index') }}" class="nav-link">
                         <i class="nav-icon fas fa-th"></i>
                         <p>Brand</p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="{{ route('admin.size.index') }}" class="nav-link">
+                        <i class="nav-icon fas fa-th"></i>
+                        <p>Size</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('admin.tag.index') }}" class="nav-link">
                         <i class="nav-icon fas fa-th"></i>
                         <p>Tag</p>
                     </a>

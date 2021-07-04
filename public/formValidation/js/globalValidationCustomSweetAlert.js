@@ -93,10 +93,10 @@ $(document).ready(function () {
 
 
             });
-      
+
         }
     };
-    
+
     GlobalFormValidation.formValidationApply();
     $('.GlobalFormValidationDelete')
       .formValidation({

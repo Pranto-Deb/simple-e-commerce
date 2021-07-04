@@ -11,7 +11,7 @@
                 <div class="card-header">
                     <h3 class="card-title">Product Table</h3>
                     <div class="heading-elements">
-                        <a href="" class="btn btn-success btn-sm mr-4 mt-2 float-right"><i class="icon-plus2"></i>Add Product</a>
+                        <a href="{{ route('admin.product.create') }}" class="btn btn-success btn-sm mr-4 mt-2 float-right"><i class="icon-plus2"></i>Add Product</a>
                     </div>
                 </div>
                 <div class="card-body">
