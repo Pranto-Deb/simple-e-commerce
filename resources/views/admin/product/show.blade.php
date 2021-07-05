@@ -16,22 +16,22 @@
                         </div>
                         <div class="col-12 product-image-thumbs">
                             @foreach($product->attachments as $attachment)
-                            <div class="product-image-thumb {{ $loop->first? 'active': '' }}"><img src="{{ $attachment->image_path }}" alt="Product Image" style="width: 100%; max-height: 5rem"></div>
+                            <div class="product-image-thumb {{ $loop->first ? 'active' : '' }}"><img src="{{ $attachment->image_path }}" alt="Product Image" style="width: 100%; max-height: 5rem"></div>
                             @endforeach
                         </div>
                     </div>
                     <div class="col-12 col-sm-6">
                         <h3 class="my-3 text-capitalize">{{ $product->product_name }}</h3>
                         <hr>
-                        <h4>Using Language</h4>
-                        @if(!empty($product->languages) && count($product->languages) > 0)
-                            @foreach($product->languages as $language)
+                        <h4>Using Sizes</h4>
+                        @if(!empty($product->sizes) && count($product->sizes) > 0)
+                            @foreach($product->sizes as $size)
                                 <label class="btn btn-default text-center">
-                                    {{ $language->lang_name }}
+                                    {{ $size->size_name }}
                                 </label>
                             @endforeach
                         @else
-                            <p class="text-info text-bold">No Language Added</p>
+                            <p class="text-info text-bold">No Size Added</p>
                         @endif
 
                         <h4 class="mt-3">Product Tags</h4>

@@ -24,7 +24,7 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Category Name</label>
-                                    <input type="text" name="category_name" class="form-control" id="exampleInputEmail1" placeholder="Enter service title"
+                                    <input type="text" name="category_name" class="form-control" id="exampleInputEmail1" placeholder="Enter category name"
                                     value="{{ !empty($category)? $category->category_name: old('category_name') }}"
                                     data-fv-notempty-message='Category Name Is Required*' required>
                                 </div>

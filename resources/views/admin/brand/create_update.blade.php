@@ -12,67 +12,67 @@
         <div class="col-md-12">
             <div class="card card-primary mt-2">
                 <div class="card-header">
-                    <h3 class="card-title">Add Service</h3>
+                    <h3 class="card-title">Add Brand</h3>
                 </div>
-                <form role="form" class="GlobalFormValidation" action="{{ !empty($service) ? route('admin.service.update', $service->service_id) : route('admin.service.store') }}" method="POST" enctype="multipart/form-data">
+                <form role="form" class="GlobalFormValidation" action="{{ !empty($brand) ? route('admin.brand.update', $brand->brand_id) : route('admin.brand.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
-                    @if(!empty($service))
+                    @if(!empty($brand))
                         @method('PUT')
                     @endif
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1">Service Title</label>
-                                    <input type="text" name="service_title" class="form-control" id="exampleInputEmail1" placeholder="Enter service title"
-                                    value="{{ !empty($service)? $service->service_title: old('service_title') }}"
-                                    data-fv-notempty-message='Service Title Is Required*' required>
+                                    <label for="exampleInputEmail1">Brand Name</label>
+                                    <input type="text" name="brand_name" class="form-control" id="exampleInputEmail1" placeholder="Enter brand name"
+                                    value="{{ !empty($brand)? $brand->brand_name: old('brand_name') }}"
+                                    data-fv-notempty-message='Brand Name Is Required*' required>
                                 </div>
                             </div>
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Details</label>
-                                    <textarea class="textarea" name="service_details" placeholder="Enter service details"
+                                    <textarea class="textarea" name="brand_details" placeholder="Enter brand details"
                                         style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"
-                                        data-fv-notempty-message='Service Details Is Required*' required>
-                                        {{ !empty($service)? $service->service_details: old('service_details') }}
+                                        data-fv-notempty-message='Brand Details Is Required*' required>
+                                        {{ !empty($brand)? $brand->brand_details: old('brand_details') }}
                                     </textarea>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Position</label>
-                                    <input type="number" name="position" class="form-control" id="exampleInputEmail1" placeholder="Enter position"
-                                    value="{{ !empty($service)? $service->position: old('position') }}"
-                                    data-fv-notempty-message='Service Position Is Required*' required>
+                                    <input type="number" name="position" class="form-control" id="exampleInputEmail1" placeholder="Enter brand position"
+                                    value="{{ !empty($brand)? $brand->position: old('position') }}"
+                                    data-fv-notempty-message='Brand Position Is Required*' required>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Status</label>
                                     <select class="form-control" name="status" style="width: 100%;">
-                                        <option {{  (empty($service) || (!empty($service) && $service->status == 1) ) ? 'selected' : '' }} value="1">Active</option>
-                                        <option {{  (!empty($service) && $service->status == 2) ? 'selected' : '' }}  value="2">Inactive</option>
+                                        <option {{  (empty($brand) || (!empty($brand) && $brand->status == 1) ) ? 'selected' : '' }} value="1">Active</option>
+                                        <option {{  (!empty($brand) && $brand->status == 2) ? 'selected' : '' }}  value="2">Inactive</option>
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <label class="upload-block" for="postImg">
                                     <div class="gallery">
-                                        @if(!empty($service) && !empty($service->icon_url))
+                                        @if(!empty($brand) && !empty($brand->attachment))
                                             <div class="image-block">
-                                                <img src="{{ $service->icon_url }}"
+                                                <img src="{{ $brand->attachment->image_path }}"
                                                      alt="..." class="img-thumbnail" style="width: 60px; height: 60px">
                                             </div>
                                         @endif
                                     </div>
-                                    @if(empty($service) && empty($service->icon_url))
-                                    <div class="upload-info">
-                                        <i class="fas fa-plus"></i>
-                                        <span>Select Icon</span>
-                                    </div>
+                                    @if(empty($brand) && empty($brand->attachment))
+                                        <div class="upload-info">
+                                            <i class="fas fa-plus"></i>
+                                            <span>Select Brand Image</span>
+                                        </div>
                                     @endif
-                                    <input type="file" name="service_icon" style="display: none;" id="postImg" class="single-image-input">
+                                    <input type="file" name="image_path" style="display: none;" id="postImg" class="single-image-input">
                                 </label>
                             </div>
                         </div>

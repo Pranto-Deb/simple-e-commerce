@@ -22,7 +22,7 @@
                                 <th>Image</th>
                                 <th>Product Name</th>
                                 <th>Price</th>
-                                <th>Languages</th>
+                                <th>Sizes</th>
                                 <th>Status</th>
                                 <th style="width: 60px">Action</th>
                             </tr>
@@ -36,9 +36,9 @@
                                         <td>{{ $product->product_name }}</td>
                                         <td>{{ $product->product_price }}</td>
                                         <td>
-                                            @if(!empty($product->languages))
-                                                @foreach($product->languages as $lang)
-                                                <span class="badge badge-info">{{ $lang->lang_name }}</span>
+                                            @if(!empty($product->sizes))
+                                                @foreach($product->sizes as $size)
+                                                <span class="badge badge-info">{{ $size->size_name }}</span>
                                                 @endforeach
                                             @endif
                                         </td>

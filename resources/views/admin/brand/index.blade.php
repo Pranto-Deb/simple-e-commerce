@@ -8,9 +8,9 @@
         <div class="col-md-12">
             <div class="card mt-2">
                 <div class="card-header">
-                    <h3 class="card-title">Service Table</h3>
+                    <h3 class="card-title">Brand Table</h3>
                     <div class="heading-elements">
-                        <a href="{{ route('admin.service.create') }}" class="btn btn-success btn-sm mr-4 mt-2 float-right"><i class="icon-plus2"></i>Add Service</a>
+                        <a href="{{ route('admin.brand.create') }}" class="btn btn-success btn-sm mr-4 mt-2 float-right"><i class="icon-plus2"></i>Add Brand</a>
                     </div>
                 </div>
                 <div class="card-body">
@@ -19,8 +19,8 @@
                             <thead>
                             <tr>
                                 <th style="width: 10px">#</th>
-                                <th>Service title</th>
-                                <th>Icon</th>
+                                <th>Brand Name</th>
+                                <th>Image</th>
                                 <th>Details</th>
                                 <th>Position</th>
                                 <th>Status</th>
@@ -28,31 +28,31 @@
                             </tr>
                             </thead>
                             <tbody>
-                            @if (!empty($services) && count($services) > 0)
-                                @foreach($services as $service)
+                            @if (!empty($brands) && count($brands) > 0)
+                                @foreach($brands as $brand)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $service->service_title }}</td>
+                                        <td>{{ $brand->brand_name }}</td>
                                         <td>
-                                            <img src="{{ $service->icon_url }}" alt="" style="height: 60px; width: 60px">
+                                            <img src="{{ $brand->attachment->image_path }}" alt="" style="height: 60px; width: 60px">
                                         </td>
                                         <td>
                                             <details>
                                                 <summary>Show Details</summary>
-                                                <p>{!! $service->service_details !!}</p>
+                                                <p>{!! $brand->brand_details !!}</p>
                                             </details>
                                         </td>
-                                        <td>{{ $service->position }}</td>
+                                        <td>{{ $brand->position }}</td>
                                         <td>
-                                            @if($service->status == '1')
+                                            @if($brand->status == '1')
                                                 <span class="badge badge-success">Active</span>
-                                            @else($service->status == '2')
+                                            @else($brand->status == '2')
                                                 <span class="badge badge-danger">Inactive</span>
                                             @endif
                                         </td>
                                         <td>
-                                            <a href="{{ route('admin.service.edit', $service->service_id) }}" class="btn btn-info btn-sm btn-block">Edit</a>
-                                            <a href="#" data-href="{{ route('admin.service.destroy', $service->service_id) }}" class="btn-delete btn btn-danger btn-sm btn-block">Delete</a>
+                                            <a href="{{ route('admin.brand.edit', $brand->brand_id) }}" class="btn btn-info btn-sm btn-block">Edit</a>
+                                            <a href="#" data-href="{{ route('admin.brand.destroy', $brand->brand_id) }}" class="btn-delete btn btn-danger btn-sm btn-block">Delete</a>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -62,7 +62,7 @@
                     </div>
                 </div>
                 <div class="card-footer clearfix">
-                    {{ $services->links() }}
+                    {{ $brands->links() }}
                 </div>
             </div>
         </div>

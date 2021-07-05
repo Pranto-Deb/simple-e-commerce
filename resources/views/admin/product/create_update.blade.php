@@ -14,7 +14,7 @@
                 <div class="card-header">
                     <h3 class="card-title">Add Product</h3>
                 </div>
-                <form role="form" class="GlobalFormValidation" action="{{ !empty($product)? route('admin.product.update', $product->product_id) : route('admin.product.store') }}" method="POST" enctype="multipart/form-data">
+                <form role="form" class="GlobalFormValidation" action="{{ !empty($product) ? route('admin.product.update', $product->product_id) : route('admin.product.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     @if(!empty($product))
                         @method('PUT')
@@ -26,7 +26,7 @@
                                     <label for="productName">Product Name</label>
                                     <input type="text" name="product_name" class="form-control"
                                             id="productName" placeholder="Enter product name"
-                                            value="{{ !empty($product)? $product->product_name: old('product_name') }}"
+                                            value="{{ !empty($product) ? $product->product_name : old('product_name') }}"
                                             data-fv-notempty-message='Product Name Is Required*' required>
                                 </div>
                             </div>
@@ -44,9 +44,9 @@
                                 <div class="form-group">
                                     <label class="content-label">Category</label>
                                     <select class="form-control" name="cat_id" style="width: 100%;" required data-fv-notempty-message='Product Category Is Required*'>
-                                        <option {{ empty($product) ? 'selected': '' }} >Select a product category</option>
+                                        <option {{ empty($product) ? 'selected': '' }}>Select a category</option>
                                         @foreach($categories as $catId => $categoryName)
-                                            <option value="{{ $catId }}" {{ !empty($product) && $catId == $product->cat_id? 'selected' :''}}>
+                                            <option value="{{ $catId }}" {{ !empty($product) && $catId == $product->cat_id ? 'selected' : ''}}>
                                                 {{ $categoryName }}
                                             </option>
                                         @endforeach
@@ -57,9 +57,9 @@
                                 <div class="form-group">
                                     <label class="content-label">Brand</label>
                                     <select class="form-control" name="br_id" style="width: 100%;" required>
-                                        <option {{ empty($product) ? 'selected': '' }} >Select a product band</option>
+                                        <option {{ empty($product) ? 'selected': '' }}>Select a band</option>
                                         @foreach($brands as $brandId => $brandName)
-                                            <option value="{{ $brandId }}" {{ !empty($product) && $brandId == $product->brand_id? 'selected' :''}}>
+                                            <option value="{{ $brandId }}" {{ !empty($product) && $brandId == $product->br_id ? 'selected' : ''}}>
                                                 {{ $brandName }}
                                             </option>
                                         @endforeach
@@ -102,7 +102,7 @@
                                     <label class="content-label" for="tag">Tags</label>
                                     <select class="select2 form-control" name="tag_ids[]" id="tag" multiple="multiple" data-placeholder="Select tags" style="width: 100%;">
                                         @foreach($tags as $tagId => $tag)
-                                            <option value="{{ $tagId }}" {{ !empty($tagIds) && in_array($tagId, $tagIds)? 'selected': '' }}>{{ $tag }}</option>
+                                            <option value="{{ $tagId }}" {{ !empty($tagIds) && in_array($tagId, $tagIds) ? 'selected': '' }}>{{ $tag }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -112,7 +112,7 @@
                                     <label for="size" class="content-label">Sizes</label>
                                     <select class="select2 form-control" name="size_ids[]" id="size" multiple="multiple" data-placeholder="Select sizes" style="width: 100%;">
                                         @foreach($sizes as $sizeId => $size)
-                                            <option value="{{ $sizeId }}" {{ !empty($sizeIds) && in_array($sizeId, $sizeIds)? 'selected': '' }}>{{ $size }}</option>
+                                            <option value="{{ $sizeId }}" {{ !empty($sizeIds) && in_array($sizeId, $sizeIds) ? 'selected' : '' }}>{{ $size }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -123,7 +123,7 @@
                                     <input type="number" name="product_quantity"
                                            class="form-control" id="position"
                                            placeholder="Enter product quantity"
-                                           value="{{ !empty($product)? $product->product_quantity: old('product_quantity') }}"
+                                           value="{{ !empty($product) ? $product->product_quantity: old('product_quantity') }}"
                                            data-fv-notempty-message='Product Quantity Is Required*' required>
                                 </div>
                             </div>

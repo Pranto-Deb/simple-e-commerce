@@ -10,7 +10,7 @@ use App\Http\Controllers\Admin\TagController;
 
 Route::group(['prefix' => 'admin', 'as'=>'admin.'], function(){
 
-    Route::resource('product', ProductController::class)->except('show', 'edit', 'destroy');
+    Route::resource('product', ProductController::class);
     Route::resource('category', CategoryController::class)->except('show');
     Route::resource('brand', BrandController::class)->except('show');
     Route::resource('size', SizeController::class)->except('create', 'show', 'edit');
