@@ -10,6 +10,7 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use phpDocumentor\Reflection\Types\Null_;
 use Symfony\Component\HttpFoundation\Response;
 
 class CategoryController extends Controller
@@ -22,7 +23,8 @@ class CategoryController extends Controller
 
     public function create()
     {
-        return view('admin.category.create_update');
+        $main_categories = Category::isActive()->orderBy('position', 'asc')->where('parent_id', NULL)->get();
+        return view('admin.category.create_update', compact('main_categories'));
     }
 
     public function store(Request $request)
@@ -30,6 +32,7 @@ class CategoryController extends Controller
         $validator = Validator::make($request->all(),
         [
             'category_name' => ['required', 'string', 'max:255'],
+            'parent_id' => ['nullable'],
             'category_details' => ['required'],
             'position' => ['required'],
             'status'=> ['required'],
@@ -40,6 +43,7 @@ class CategoryController extends Controller
                 DB::beginTransaction();
 
                 $category = Category::create([
+                    'parent_id'=> !empty($request->parent_id) ? $request->parent_id : Null,
                     'category_name'=> $request->category_name,
                     'category_details'=> $request->category_details,
                     'position'=> $request->position,
@@ -69,15 +73,18 @@ class CategoryController extends Controller
 
     public function edit($id)
     {
+        $main_categories = Category::isActive()->orderBy('position', 'asc')->where('parent_id', NULL)->get();
         $category = Category::where('category_id', $id)->firstOrFail();
         return view('admin.category.create_update', [
             'category'=>$category,
+            'main_categories'=>$main_categories
         ]);
     }
 
     public function update(Request $request, $id)
     {
         $validator = Validator::make($request->all(),[
+            'parent_id' => ['nullable'],
             'category_name' => ['required', 'string', 'max:255'],
             'category_details' => ['required'],
             'position' => ['required'],
@@ -93,6 +100,7 @@ class CategoryController extends Controller
                 }
 
                 $categoryU = $category->update([
+                    'parent_id'=>$request->parent_id,
                     'category_name'=> $request->category_name,
                     'category_details'=> $request->category_details,
                     'position'=> $request->position,

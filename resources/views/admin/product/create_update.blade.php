@@ -40,11 +40,25 @@
                                            data-fv-notempty-message='Product Price Is Required*' required>
                                 </div>
                             </div>
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Select Category</label>
+                                <select class="form-control" name="cat_id">
+                                    <option>Select a category for the product</option>
+                                    @foreach(App\Models\Category::orderBy('category_name', 'asc')
+                                                        ->where('parent_id', NULL)->get() as $category)
+                                    <option value="{{$category->category_id}}">{{$category->category_name}}</option>
+                                    @foreach(App\Models\Category::orderBy('category_name', 'asc')
+                                                        ->where('parent_id', $category->category_id)->get() as $sub)
+                                        <option value="{{$sub->category_id}}">-------->{{$sub->category_name}}</option>
+                                        @endforeach
+                                    @endforeach
+                                </select>
+                            </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="content-label">Category</label>
                                     <select class="form-control" name="cat_id" style="width: 100%;" required data-fv-notempty-message='Product Category Is Required*'>
-                                        <option {{ empty($product) ? 'selected': '' }}>Select a category</option>
+                                        <option {{ empty($product) ? 'selected' : '' }}>Select a category</option>
                                         @foreach($categories as $catId => $categoryName)
                                             <option value="{{ $catId }}" {{ !empty($product) && $catId == $product->cat_id ? 'selected' : ''}}>
                                                 {{ $categoryName }}

@@ -31,6 +31,17 @@
                             </div>
                             <div class="col-md-12">
                                 <div class="form-group">
+                                    <label for="parent_category">Main Category:</label>
+                                    <select class="form-control" name="parent_id">
+                                        <option {{ empty($category) ? 'selected' : ''}}>Select main category</option>
+                                        @foreach($main_categories as $m_category)
+                                            <option value="{{ $m_category->category_id }}" {{ (!empty($category)) && $m_category->category_id == $category->parent_id ? 'selected' : ''}}>{{ $m_category->category_name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
                                     <label for="exampleInputEmail1">Details</label>
                                     <textarea class="textarea" name="category_details" placeholder="Enter category details"
                                         style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"
@@ -97,4 +108,17 @@
             $('.textarea').summernote()
         });
     </script>
+    {{-- <script>
+        $('#is_parent').change(function(){
+          var is_checked=$('#is_parent').prop('checked');
+          // alert(is_checked);
+          if(is_checked){
+            $('#parent_cat_div').addClass('d-none');
+            $('#parent_cat_div').val('');
+          }
+          else{
+            $('#parent_cat_div').removeClass('d-none');
+          }
+        })
+      </script> --}}
 @endsection

@@ -17,15 +17,15 @@
                     <div class="table-responsive">
                         <table class="table table-bordered">
                             <thead>
-                            <tr>
-                                <th style="width: 10px">#</th>
-                                <th>Category Name</th>
-                                <th>Image</th>
-                                <th>Details</th>
-                                <th>Position</th>
-                                <th>Status</th>
-                                <th style="width: 60px">Action</th>
-                            </tr>
+                                <tr>
+                                    <th style="width: 10px">#</th>
+                                    <th>Category Name</th>
+                                    <th>Image</th>
+                                    <th>Details</th>
+                                    <th>Position</th>
+                                    <th>Status</th>
+                                    <th style="width: 60px">Action</th>
+                                </tr>
                             </thead>
                             <tbody>
                             @if (!empty($categories) && count($categories) > 0)
