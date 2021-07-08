@@ -24,7 +24,7 @@
                                 <th>Details</th>
                                 <th>Position</th>
                                 <th>Status</th>
-                                <th style="width: 60px">Action</th>
+                                <th>Action</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -34,7 +34,7 @@
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $brand->brand_name }}</td>
                                         <td>
-                                            <img src="{{ $brand->attachment->image_path }}" alt="" style="height: 60px; width: 60px">
+                                            <img src="{{ $brand->attachment->image_path }}" alt="" style="height: 40px; width: 40px">
                                         </td>
                                         <td>
                                             <details>
@@ -51,8 +51,10 @@
                                             @endif
                                         </td>
                                         <td>
-                                            <a href="{{ route('admin.brand.edit', $brand->brand_id) }}" class="btn btn-info btn-sm btn-block">Edit</a>
-                                            <a href="#" data-href="{{ route('admin.brand.destroy', $brand->brand_id) }}" class="btn-delete btn btn-danger btn-sm btn-block">Delete</a>
+                                            <div class="btn-group">
+                                                <a href="{{ route('admin.brand.edit', $brand->brand_id) }}" class="btn btn-info btn-sm"><i class='fa fa-edit'></i></a>
+                                                <a href="#" data-href="{{ route('admin.brand.destroy', $brand->brand_id) }}" class="btn-delete btn btn-danger btn-sm"><i class="fa fa-trash-o"></i></a>
+                                            </div>
                                         </td>
                                     </tr>
                                 @endforeach

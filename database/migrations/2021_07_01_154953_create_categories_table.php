@@ -15,10 +15,11 @@ class CreateCategoriesTable extends Migration
     {
         Schema::create('categories', function (Blueprint $table) {
             $table->id('category_id');
+            $table->unsignedBigInteger('parent_id')->nullable();
             $table->string('category_name');
-            $table->longText('category_details');
             $table->unsignedTinyInteger('position');
             $table->boolean('status')->nullable()->default(config('app.active'));
+            $table->foreign('parent_id')->references('category_id')->on('categories')->nullOnDelete();
             $table->timestamps();
         });
     }

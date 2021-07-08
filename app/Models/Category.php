@@ -20,17 +20,16 @@ class Category extends Model
     protected $fillable = [
         'parent_id',
         'category_name',
-        'category_details',
         'position',
         'status',
     ];
 
-    public function subcategory(){
+    public function subCategories(){
     	return $this->hasMany(Category::class, 'parent_id');
     }
 
     public function parent(){
-    	return $this->belongsTo(Category::class, 'parent_id');
+    	return $this->hasOne(Category::class, 'parent_id');
     }
 
     public function products()

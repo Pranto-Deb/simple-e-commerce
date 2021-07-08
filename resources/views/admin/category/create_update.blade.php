@@ -21,7 +21,7 @@
                     @endif
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-md-12">
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Category Name</label>
                                     <input type="text" name="category_name" class="form-control" id="exampleInputEmail1" placeholder="Enter category name"
@@ -29,25 +29,15 @@
                                     data-fv-notempty-message='Category Name Is Required*' required>
                                 </div>
                             </div>
-                            <div class="col-md-12">
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="parent_category">Main Category:</label>
                                     <select class="form-control" name="parent_id">
-                                        <option {{ empty($category) ? 'selected' : ''}}>Select main category</option>
+                                        <option {{ empty($category) ? 'selected' : ''}} value="">Select main category</option>
                                         @foreach($main_categories as $m_category)
                                             <option value="{{ $m_category->category_id }}" {{ (!empty($category)) && $m_category->category_id == $category->parent_id ? 'selected' : ''}}>{{ $m_category->category_name }}</option>
                                         @endforeach
                                     </select>
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label for="exampleInputEmail1">Details</label>
-                                    <textarea class="textarea" name="category_details" placeholder="Enter category details"
-                                        style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"
-                                        data-fv-notempty-message='Category Details Is Required*' required>
-                                        {{ !empty($category)? $category->category_details: old('category_details') }}
-                                    </textarea>
                                 </div>
                             </div>
                             <div class="col-md-6">

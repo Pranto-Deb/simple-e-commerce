@@ -17,7 +17,7 @@ class CategoryController extends Controller
 {
     public function index(Request $request)
     {
-        $categories = Category::notDelete()->with('attachment')->paginate(15);
+        $categories = Category::notDelete()->with('attachment', 'parent')->paginate();
         return view('admin.category.index', compact('categories'));
     }
 
@@ -33,7 +33,6 @@ class CategoryController extends Controller
         [
             'category_name' => ['required', 'string', 'max:255'],
             'parent_id' => ['nullable'],
-            'category_details' => ['required'],
             'position' => ['required'],
             'status'=> ['required'],
         ]);
@@ -43,9 +42,8 @@ class CategoryController extends Controller
                 DB::beginTransaction();
 
                 $category = Category::create([
-                    'parent_id'=> !empty($request->parent_id) ? $request->parent_id : Null,
+                    'parent_id'=> !empty($request->parent_id) ? $request->parent_id : null,
                     'category_name'=> $request->category_name,
-                    'category_details'=> $request->category_details,
                     'position'=> $request->position,
                     'status'=> $request->status,
                 ]);
@@ -86,7 +84,6 @@ class CategoryController extends Controller
         $validator = Validator::make($request->all(),[
             'parent_id' => ['nullable'],
             'category_name' => ['required', 'string', 'max:255'],
-            'category_details' => ['required'],
             'position' => ['required'],
             'status'=> ['required'],
         ]);
@@ -100,9 +97,8 @@ class CategoryController extends Controller
                 }
 
                 $categoryU = $category->update([
-                    'parent_id'=>$request->parent_id,
+                    'parent_id'=>!empty($request->parent_id) ? $request->parent_id : $category->parent_id,
                     'category_name'=> $request->category_name,
-                    'category_details'=> $request->category_details,
                     'position'=> $request->position,
                     'status'=> $request->status,
                 ]);

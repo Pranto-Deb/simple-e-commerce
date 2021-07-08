@@ -26,7 +26,6 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="card-footer">
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </div>
@@ -55,7 +54,9 @@
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $tag->tag_name }}</td>
                                     <td>
-                                        <a href="#" data-href="{{ route('admin.tag.destroy', $tag->tag_id) }}" class="btn-delete btn btn-danger btn-sm btn-block">Delete</a>
+                                        <div class="btn-group">
+                                            <a href="#" data-href="{{ route('admin.tag.destroy', $tag->tag_id) }}" class="btn-delete btn btn-danger btn-sm"><i class="fa fa-trash-o"></i></a>
+                                        </div>
                                     </td>
                                 </tr>
                                 @endforeach

@@ -55,7 +55,9 @@
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $size->size_name }}</td>
                                     <td>
-                                        <a href="#" data-href="{{ route('admin.size.destroy', $size->size_id) }}" class="btn-delete btn btn-danger btn-sm btn-block">Delete</a>
+                                        <div class="btn-group">
+                                            <a href="#" data-href="{{ route('admin.size.destroy', $size->size_id) }}" class="btn-delete btn btn-danger btn-sm"><i class="fa fa-trash-o"></i></a>
+                                        </div>
                                     </td>
                                 </tr>
                                 @endforeach

@@ -50,9 +50,11 @@
                                             @endif
                                         </td>
                                         <td>
-                                        <a href="{{ route('admin.product.show', $product->product_id) }}" class="btn btn-success btn-sm btn-block">View</a>
-                                        <a href="{{ route('admin.product.edit', $product->product_id) }}" class="btn btn-info btn-sm btn-block">Edit</a>
-                                        <a href="#" data-href="{{ route('admin.product.destroy', $product->product_id ) }}" class="btn-delete btn btn-danger btn-sm btn-block">Delete</a>
+                                            <div class="btn-group">
+                                                <a href="{{ route('admin.product.show', $product->product_id) }}" class="btn btn-success btn-sm"><i class="fa fa-eye"></i></a>
+                                                <a href="{{ route('admin.product.edit', $product->product_id) }}" class="btn btn-info btn-sm"><i class='fa fa-edit'></i></a>
+                                                <a href="#" data-href="{{ route('admin.product.destroy', $product->product_id ) }}" class="btn-delete btn btn-danger btn-sm"><i class="fa fa-trash-o"></i></a>
+                                            </div>
                                         </td>
                                     </tr>
                                 @endforeach

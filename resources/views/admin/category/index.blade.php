@@ -19,12 +19,12 @@
                             <thead>
                                 <tr>
                                     <th style="width: 10px">#</th>
-                                    <th>Category Name</th>
                                     <th>Image</th>
-                                    <th>Details</th>
+                                    <th>Category Name</th>
+                                    <th>Parent Category</th>
                                     <th>Position</th>
                                     <th>Status</th>
-                                    <th style="width: 60px">Action</th>
+                                    <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -32,16 +32,11 @@
                                 @foreach($categories as $category)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
+                                        <td>
+                                            <img src="{{ $category->attachment->image_path }}" alt="" style="height: 40px; width: 40px">
+                                        </td>
                                         <td>{{ $category->category_name }}</td>
-                                        <td>
-                                            <img src="{{ $category->attachment->image_path }}" alt="" style="height: 60px; width: 60px">
-                                        </td>
-                                        <td>
-                                            <details>
-                                                <summary>Show Details</summary>
-                                                <p>{!! $category->category_details !!}</p>
-                                            </details>
-                                        </td>
+                                        <td>{{ !empty($category->parent) ? $category->parent->category_name : ''}} </td>
                                         <td>{{ $category->position }}</td>
                                         <td>
                                             @if($category->status == '1')
@@ -51,8 +46,10 @@
                                             @endif
                                         </td>
                                         <td>
-                                            <a href="{{ route('admin.category.edit', $category->category_id) }}" class="btn btn-info btn-sm btn-block">Edit</a>
-                                            <a href="#" data-href="{{ route('admin.category.destroy', $category->category_id) }}" class="btn-delete btn btn-danger btn-sm btn-block">Delete</a>
+                                            <div class="btn-group">
+                                                <a href="{{ route('admin.category.edit', $category->category_id) }}" class="btn btn-info btn-sm"><i class='fa fa-edit'></i></a>
+                                                <a href="#" data-href="{{ route('admin.category.destroy', $category->category_id) }}" class="btn-delete btn btn-danger btn-sm"><i class="fa fa-trash-o"></i></a>
+                                            </div>
                                         </td>
                                     </tr>
                                 @endforeach
