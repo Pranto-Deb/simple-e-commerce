@@ -28,8 +28,9 @@ class ProductController extends Controller
     {
         $sizes = Size::orderBy('size_name', 'ASC')->pluck('size_name', 'size_id');
         $tags = Tag::orderBy('tag_name', 'ASC')->pluck('tag_name', 'tag_id');
-        $categories = Category::isActive()->orderBy('position', 'asc')->pluck('category_name', 'category_id');
+        $categories = Category::isActive()->orderBy('position', 'asc')->where('parent_id', NULL)->get();
         $brands = Brand::isActive()->orderBy('position', 'asc')->pluck('brand_name', 'brand_id');
+
         return view('admin.product.create_update', compact('tags', 'sizes', 'categories', 'brands'));
     }
 
@@ -40,6 +41,7 @@ class ProductController extends Controller
             'product_name' => ['required', 'string', 'max:255'],
             'product_price' => ['required', 'numeric'],
             'cat_id' => ['required'],
+            'sub_cat_id' => ['nullable'],
             'br_id' => ['required'],
             'product_features' => ['required'],
             'product_details' => ['required'],
@@ -59,6 +61,7 @@ class ProductController extends Controller
                     'product_name'=> $request->product_name,
                     'product_price'=> $request->product_price,
                     'cat_id'=> $request->cat_id,
+                    'sub_cat_id'=> $request->sub_cat_id,
                     'br_id'=> $request->br_id,
                     'product_features'=> $request->product_features,
                     'product_details'=> $request->product_details,
@@ -67,6 +70,7 @@ class ProductController extends Controller
                     'position'=> $request->position,
                     'status'=> $request->status,
                 ]);
+
 
                 if (!empty($product)) {
                     if (!empty($request->tag_ids) && count($request->tag_ids) > 0){
@@ -84,6 +88,7 @@ class ProductController extends Controller
                             }
                         }
                     }
+
                     DB::commit();
                     return JsonResponse::allResponse('success', Response::HTTP_OK, 'Product Added Successfully', route('admin.product.index'));
                 }
@@ -127,6 +132,7 @@ class ProductController extends Controller
             'product_name' => ['required', 'string', 'max:255'],
             'product_price' => ['required', 'numeric'],
             'cat_id' => ['required'],
+            'sub_cat_id' => ['nullable'],
             'br_id' => ['required'],
             'product_features' => ['required'],
             'product_details' => ['required'],
@@ -149,6 +155,7 @@ class ProductController extends Controller
                     'product_name'=> $request->product_name,
                     'product_price'=> $request->product_price,
                     'cat_id'=> $request->cat_id,
+                    'sub_cat_id'=> $request->sub_cat_id,
                     'br_id'=> $request->br_id,
                     'product_features'=> $request->product_features,
                     'product_details'=> $request->product_details,
@@ -208,6 +215,16 @@ class ProductController extends Controller
             DB::rollback();
             return JsonResponse::allResponse('error', $ex->getCode(), $ex->getMessage());
         }
+    }
+
+    public function subCategory(Request $request){
+        $parent_id = $request->cat_id;
+
+        $subcategories = Category::where('parent_id', $parent_id)->pluck('category_name', 'category_id');
+
+        return response()->json([
+            'subcategories' => $subcategories
+        ]);
     }
 
 }

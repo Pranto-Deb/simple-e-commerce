@@ -40,28 +40,14 @@
                                            data-fv-notempty-message='Product Price Is Required*' required>
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <label for="exampleInputEmail1">Select Category</label>
-                                <select class="form-control" name="cat_id">
-                                    <option>Select a category for the product</option>
-                                    @foreach(App\Models\Category::orderBy('category_name', 'asc')
-                                                        ->where('parent_id', NULL)->get() as $category)
-                                    <option value="{{$category->category_id}}">{{$category->category_name}}</option>
-                                    @foreach(App\Models\Category::orderBy('category_name', 'asc')
-                                                        ->where('parent_id', $category->category_id)->get() as $sub)
-                                        <option value="{{$sub->category_id}}">-------->{{$sub->category_name}}</option>
-                                        @endforeach
-                                    @endforeach
-                                </select>
-                            </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="content-label">Category</label>
-                                    <select class="form-control" name="cat_id" style="width: 100%;" required data-fv-notempty-message='Product Category Is Required*'>
-                                        <option {{ empty($product) ? 'selected' : '' }}>Select a category</option>
-                                        @foreach($categories as $catId => $categoryName)
-                                            <option value="{{ $catId }}" {{ !empty($product) && $catId == $product->cat_id ? 'selected' : ''}}>
-                                                {{ $categoryName }}
+                                    <select class="form-control" name="cat_id" id="category" style="width: 100%;" required data-fv-notempty-message='Product Category Is Required*'>
+                                        <option {{ empty($product) ? 'selected' : ''}}>Select a category</option>
+                                        @foreach($categories as $category)
+                                            <option value="{{ $category->category_id }}" {{ !empty($product) && $category->category_id == $product->cat_id ? 'selected' : ''}}>
+                                                {{ $category->category_name }}
                                             </option>
                                         @endforeach
                                     </select>
@@ -69,8 +55,16 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
+                                    <label class="content-label">Sub Category</label>
+                                    <select class="form-control" name="sub_cat_id" id="subcategory" style="width: 100%;">
+
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
                                     <label class="content-label">Brand</label>
-                                    <select class="form-control" name="br_id" style="width: 100%;" required>
+                                    <select class="form-control" id="brand" name="br_id" style="width: 100%;" required>
                                         <option {{ empty($product) ? 'selected': '' }}>Select a band</option>
                                         @foreach($brands as $brandId => $brandName)
                                             <option value="{{ $brandId }}" {{ !empty($product) && $brandId == $product->br_id ? 'selected' : ''}}>
@@ -133,9 +127,9 @@
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label for="position">Quantity</label>
+                                    <label for="quantity">Quantity</label>
                                     <input type="number" name="product_quantity"
-                                           class="form-control" id="position"
+                                           class="form-control" id="quantity"
                                            placeholder="Enter product quantity"
                                            value="{{ !empty($product) ? $product->product_quantity: old('product_quantity') }}"
                                            data-fv-notempty-message='Product Quantity Is Required*' required>
@@ -202,8 +196,10 @@
 @endsection
 
 @section('PageJs')
+
     <script src="{{ asset('assets/plugins/summernote/summernote-bs4.min.js') }}"></script>
     <script src="{{ asset('assets/plugins/select2/js/select2.full.min.js') }}"></script>
+
     <script>
         $(function () {
             //Initialize Select2 Elements
@@ -211,5 +207,36 @@
             $('.textarea').summernote()
         });
     </script>
+    <script>
+        $(document).ready(function () {
+
+            $('#category').on('change',function(e) {
+
+             var cat_id = e.target.value;
+
+             $.ajax({
+
+                   url:"{{ route('subcat') }}",
+                   type:"POST",
+                   data: {
+                       cat_id: cat_id
+                    },
+
+                   success:function (data) {
+
+                    $('#subcategory').empty();
+
+                    $.each(data.subcategories,function(index,subcategory){
+
+                        $('#subcategory').append('<option value="'+index+'">'+subcategory+'</option>');
+                    })
+
+                   }
+               })
+            });
+
+        });
+    </script>
+
 @endsection
 

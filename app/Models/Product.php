@@ -45,4 +45,9 @@ class Product extends Model
         return $this->belongsTo(Brand::class, 'br_id', 'brand_id');
     }
 
+    public function subcategory()
+    {
+        return $this->belongsTo(Brand::class, 'sub_cat_id', 'category_id');
+    }
+
 }

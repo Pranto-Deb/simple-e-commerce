@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>E-Commerce | @yield('title', 'Dashboard')</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
 
     <link rel="stylesheet" href="{{ asset('assets/plugins/fontawesome-free/css/all.min.css') }}">
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
@@ -83,8 +84,17 @@
     <script src="{{ asset('assets/dist/js/demo.js') }}"></script>
     <script src="{{ asset('js/image_preview.js') }}"></script>
 
-    @yield('PageJs')
 
+
+    @yield('PageJs')
+    <script>
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+    </script>
     <script>
         $(function () {
             $.widget.bridge('uibutton', $.ui.button)

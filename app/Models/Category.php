@@ -24,7 +24,7 @@ class Category extends Model
         'status',
     ];
 
-    public function subCategories(){
+    public function subcategories(){
     	return $this->hasMany(Category::class, 'parent_id');
     }
 

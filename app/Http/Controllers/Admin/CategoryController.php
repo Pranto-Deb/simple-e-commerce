@@ -17,7 +17,7 @@ class CategoryController extends Controller
 {
     public function index(Request $request)
     {
-        $categories = Category::notDelete()->with('attachment', 'parent')->paginate();
+        $categories = Category::notDelete()->with('attachment', 'parent')->paginate(15);
         return view('admin.category.index', compact('categories'));
     }
 
@@ -147,4 +147,5 @@ class CategoryController extends Controller
             return JsonResponse::allResponse('error', $ex->getCode(), $ex->getMessage());
         }
     }
+
 }

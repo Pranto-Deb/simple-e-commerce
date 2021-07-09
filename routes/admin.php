@@ -15,5 +15,6 @@ Route::group(['prefix' => 'admin', 'as'=>'admin.'], function(){
     Route::resource('brand', BrandController::class)->except('show');
     Route::resource('size', SizeController::class)->except('create', 'show', 'edit');
     Route::resource('tag', TagController::class)->except('create', 'show', 'edit');
-
 });
+
+Route::post('/subcat', [ProductController::class, 'subCategory'])->name('subcat');
