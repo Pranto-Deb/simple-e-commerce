@@ -45,20 +45,38 @@
                                     <label class="content-label">Category</label>
                                     <select class="form-control" name="cat_id" id="category" style="width: 100%;" required data-fv-notempty-message='Product Category Is Required*'>
                                         <option {{ empty($product) ? 'selected' : ''}}>Select a category</option>
+                                        @if(!empty($categories) && count($categories) > 0)
                                         @foreach($categories as $category)
+                                            @if($category->parent_id == NULL)
                                             <option value="{{ $category->category_id }}" {{ !empty($product) && $category->category_id == $product->cat_id ? 'selected' : ''}}>
                                                 {{ $category->category_name }}
                                             </option>
+                                            @endif
                                         @endforeach
+                                        @endif
                                     </select>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="content-label">Sub Category</label>
-                                    <select class="form-control" name="sub_cat_id" id="subcategory" style="width: 100%;">
-
+                                    @if(!empty($product))
+                                    <select class="form-control" name="sub_cat_id" style="width: 100%;">
+                                        @if(!empty($categories) && count($categories) > 0)
+                                        @foreach($categories as $category)
+                                            @if($category->parent_id != NULL)
+                                                <option value="{{ $category->category_id }}" {{ !empty($product) && $category->category_id == $product->sub_cat_id ? 'selected' : ''}}>
+                                                    {{ $category->category_name }}
+                                                </option>
+                                            @endif
+                                        @endforeach
+                                        @endif
                                     </select>
+                                    @else
+                                        <select class="form-control" name="sub_cat_id" id="subcategory" style="width: 100%;">
+
+                                        </select>
+                                    @endif
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -215,7 +233,6 @@
              var cat_id = e.target.value;
 
              $.ajax({
-
                    url:"{{ route('subcat') }}",
                    type:"POST",
                    data: {
@@ -234,9 +251,7 @@
                    }
                })
             });
-
         });
     </script>
-
 @endsection
 

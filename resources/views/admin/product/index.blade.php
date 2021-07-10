@@ -21,10 +21,13 @@
                                 <th style="width: 10px">#</th>
                                 <th>Image</th>
                                 <th>Product Name</th>
+                                <th>Category</th>
+                                <th>Subcategory</th>
                                 <th>Price</th>
+                                <th>Quantity</th>
                                 <th>Sizes</th>
                                 <th>Status</th>
-                                <th style="width: 60px">Action</th>
+                                <th style="width: 60px;">Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -34,7 +37,10 @@
                                         <td>{{ $loop->iteration }}</td>
                                         <td><img src="{{ $product->attachment->image_path }}" alt="" style="height: 60px; width: 60px"></td>
                                         <td>{{ $product->product_name }}</td>
+                                        <td>{{ $product->category->category_name }}</td>
+                                        <td>{{ !empty($product->subcategory) ? $product->subcategory->category_name : '' }}</td>
                                         <td>{{ $product->product_price }}</td>
+                                        <td>{{ $product->product_quantity }}</td>
                                         <td>
                                             @if(!empty($product->sizes))
                                                 @foreach($product->sizes as $size)

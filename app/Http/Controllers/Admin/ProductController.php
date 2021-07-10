@@ -117,7 +117,7 @@ class ProductController extends Controller
         $product = Product::where('product_id', $id)->with('tags', 'sizes', 'attachments')->firstOrFail();
         $sizes = Size::orderBy('size_name', 'ASC')->pluck('size_name', 'size_id');
         $tags = Tag::orderBy('tag_name', 'ASC')->pluck('tag_name', 'tag_id');
-        $categories = Category::isActive()->orderBy('position', 'asc')->pluck('category_name', 'category_id');
+        $categories = Category::isActive()->orderBy('position', 'asc')->get();
         $brands = Brand::isActive()->orderBy('position', 'asc')->pluck('brand_name', 'brand_id');
         $tagIds = $product->tags->pluck('tag_id')->toArray();
         $sizeIds = $product->sizes->pluck('size_id')->toArray();
