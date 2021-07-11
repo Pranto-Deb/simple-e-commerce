@@ -23,6 +23,12 @@
                     <div class="col-12 col-sm-6">
                         <h3 class="my-3 text-capitalize">{{ $product->product_name }}</h3>
                         <hr>
+                        <h4>Category Name</h4>
+                        <h5 class="my-3 text-capitalize">{{ $product->category->category_name }}</h3>
+                        <hr>
+                        <h4>Sub Category</h4>
+                        <h5 class="my-3 text-capitalize">{{ !empty($product->subcategory) ? $product->subcategory->category_name : '' }}</h3>
+                        <hr>
                         <h4>Using Sizes</h4>
                         @if(!empty($product->sizes) && count($product->sizes) > 0)
                             @foreach($product->sizes as $size)
@@ -76,7 +82,6 @@
             <!-- /.card-body -->
         </div>
         <!-- /.card -->
-
     </section>
     <!-- /.content -->
 @endsection
